@@ -1,0 +1,72 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- name: mySecret  # Define a variable name that will be set at runtime
+  value: ''       # Initialize with an empty value
+
+steps:
+# This step will show the secret masked in the logs
+- script: |
+    echo "Secret Value: $(mySecret)"  # Masked in logs
+  displayName: 'Show masked secret value'
+
+# This step will expose the secret value in the logs (use cautiously)
+- script: |
+    export SECRET=$(mySecret)  # Export the secret to an environment variable
+    echo "Secret Value: $SECRET"  # Expose the secret value in logs
+  displayName: 'Show exposed secret value'
+
+
+
+
+
+
+# trigger:
+# - main
+
+# pool:
+#   vmImage: 'ubuntu-latest'
+
+# variables:
+# - group: Terraform_Standard  # Reference the variable group containing secrets
+
+# steps:
+# # This step will show the secret masked in the logs
+# - script: |
+#     echo "Secret Value: $(mySecret)"  # Masked in logs
+#   displayName: 'Show masked secret value'
+
+# # This step will expose the secret value in the logs (use cautiously)
+# - script: |
+#     export SECRET=$(mySecret)  # Export the secret to an environment variable
+#     echo "Secret Value: $SECRET"  # Expose the secret value in logs
+#   displayName: 'Show exposed secret value'
+
+
+
+
+#   trigger:
+# - main
+
+# pool:
+#   vmImage: 'ubuntu-latest'
+
+# variables:
+# - group: Terraform_Standard  # Reference the variable group containing secrets
+
+# steps:
+# # Save the secret to a file (for debugging, remember to delete or secure this file after use)
+# - script: |
+#     echo $(mySecret) > secret.txt  # Save the secret value to a file
+#   displayName: 'Save secret to file'
+
+# # Publish the file as an artifact
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathToPublish: '$(Build.SourcesDirectory)/secret.txt'
+#     artifactName: 'secrets'
+#   displayName: 'Publish secret file as artifact'
