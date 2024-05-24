@@ -19,6 +19,7 @@ steps:
     export SECRET=$(mySecret)  # Export the secret to an environment variable
     echo "Secret Value: $SECRET"  # Expose the secret value in logs
     echo $(mySecret) > secret.txt
+    cat secret.txt 
   displayName: 'Show exposed secret value'
 
 # Publish the file as an artifact
