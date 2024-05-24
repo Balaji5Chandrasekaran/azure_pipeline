@@ -5,30 +5,39 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-- name: mySecret  # Define a variable name that will be set at runtime
-#  value: ''       # Initialize with an empty value
-
+- group: test  # Define a variable name that will be set at runtime
+#  value: 'secret'       # Initialize with an empty value
 steps:
-# This step will show the secret masked in the logs
-- script: |
-    echo "Secret Value: $(MYSECRET)"  # Masked in logs
-  displayName: 'Show masked secret value'
-  
-
-# This step will expose the secret value in the logs (use cautiously)
-- script: |
-    export SECRET=$(MYSECRET)  # Export the secret to an environment variable
-    echo "Secret Value: $SECRET"  # Expose the secret value in logs
-    echo $(MYSECRET) > secret.txt
-    cat secret.txt 
-  displayName: 'Show exposed secret value'
-
-# Publish the file as an artifact
+- powershell: |
+    "the value: $(secret)" | Out-File -FilePath  $(Build.ArtifactStagingDirectory)\DisplaySecret.txt
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: '$(Build.SourcesDirectory)/secret.txt'
-    artifactName: 'secrets'
-  displayName: 'Publish secret file as artifact'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+
+# steps:
+# # This step will show the secret masked in the logs
+# - script: |
+#     echo "Secret Value: $(MYSECRET)"  # Masked in logs
+#   displayName: 'Show masked secret value'
+  
+
+# # This step will expose the secret value in the logs (use cautiously)
+# - script: |
+#     export SECRET=$(MYSECRET)  # Export the secret to an environment variable
+#     echo "Secret Value: $SECRET"  # Expose the secret value in logs
+#     echo $(MYSECRET) > secret.txt
+#     cat secret.txt 
+#   displayName: 'Show exposed secret value'
+
+# # Publish the file as an artifact
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     pathToPublish: '$(Build.SourcesDirectory)/secret.txt'
+#     artifactName: 'secrets'
+#   displayName: 'Publish secret file as artifact'
 
 
 
