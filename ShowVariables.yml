@@ -6,7 +6,7 @@ pool:
 
 variables:
 - name: mySecret  # Define a variable name that will be set at runtime
-  value: ''       # Initialize with an empty value
+#  value: ''       # Initialize with an empty value
 
 steps:
 # This step will show the secret masked in the logs
