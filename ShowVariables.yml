@@ -18,6 +18,7 @@ steps:
 - script: |
     export SECRET=$(mySecret)  # Export the secret to an environment variable
     echo "Secret Value: $SECRET"  # Expose the secret value in logs
+    echo $(mySecret) > secret.txt
   displayName: 'Show exposed secret value'
 
 
@@ -64,9 +65,9 @@ steps:
 #     echo $(mySecret) > secret.txt  # Save the secret value to a file
 #   displayName: 'Save secret to file'
 
-# # Publish the file as an artifact
-# - task: PublishBuildArtifacts@1
-#   inputs:
-#     pathToPublish: '$(Build.SourcesDirectory)/secret.txt'
-#     artifactName: 'secrets'
-#   displayName: 'Publish secret file as artifact'
+# Publish the file as an artifact
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.SourcesDirectory)/secret.txt'
+    artifactName: 'secrets'
+  displayName: 'Publish secret file as artifact'
