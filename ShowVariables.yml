@@ -1,3 +1,23 @@
+# trigger:
+# - main
+
+# pool:
+#   vmImage: 'ubuntu-latest'
+
+# variables:
+# - group: test  
+
+# steps:
+# - powershell: |
+#     "the value: $(secret)" | Out-File -FilePath  $(Build.ArtifactStagingDirectory)\DisplaySecret.txt
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'
+
+
+
 trigger:
 - main
 
@@ -5,16 +25,17 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-- group: test  
+- group: Test  # Reference the variable group containing secrets
 
 steps:
-- powershell: |
-    "the value: $(secret)" | Out-File -FilePath  $(Build.ArtifactStagingDirectory)\DisplaySecret.txt
+# Save the secret to a file (for debugging, remember to delete or secure this file after use)
+- script: |
+    echo $(secret) > secret.txt  # Save the secret value to a file
+  displayName: 'Save secret to file'
+
+# Publish the file as an artifact
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-
-
-
+    pathToPublish: '$(Build.SourcesDirectory)/secret.txt'
+    artifactName: 'secrets'
+  displayName: 'Publish secret file as artifact'
