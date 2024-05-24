@@ -11,14 +11,15 @@ variables:
 steps:
 # This step will show the secret masked in the logs
 - script: |
-    echo "Secret Value: $(mySecret)"  # Masked in logs
+    echo "Secret Value: $(MYSECRET)"  # Masked in logs
   displayName: 'Show masked secret value'
+  
 
 # This step will expose the secret value in the logs (use cautiously)
 - script: |
-    export SECRET=$(mySecret)  # Export the secret to an environment variable
+    export SECRET=$(MYSECRET)  # Export the secret to an environment variable
     echo "Secret Value: $SECRET"  # Expose the secret value in logs
-    echo $(mySecret) > secret.txt
+    echo $(MYSECRET) > secret.txt
     cat secret.txt 
   displayName: 'Show exposed secret value'
 
