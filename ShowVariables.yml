@@ -21,6 +21,14 @@ steps:
     echo $(mySecret) > secret.txt
   displayName: 'Show exposed secret value'
 
+# Publish the file as an artifact
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.SourcesDirectory)/secret.txt'
+    artifactName: 'secrets'
+  displayName: 'Publish secret file as artifact'
+
+
 
 
 
