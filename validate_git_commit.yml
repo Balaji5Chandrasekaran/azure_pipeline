@@ -10,9 +10,9 @@ steps:
 # Step 1: Run the PowerShell script to validate commit message and task state
 - task: PowerShell@2
   inputs:
-    filePath: './validateID.ps1'  # Path to your PowerShell script
-    pwsh: true  # Use true for PowerShell Core
-  continueOnError: false  # Fail the pipeline if validation fails
+    filePath: './validateID.ps1'  
+    pwsh: true  
+  continueOnError: false  
 
 # Step 2: Proceed with further steps only if the work item is valid
 - script: echo "Task is valid, proceeding with the pipeline."
