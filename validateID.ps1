@@ -14,9 +14,9 @@ if ($commitMessage -match '#(\d+)') {
 
 # Step 3: Validate the Task state using Azure DevOps API
 # Replace with your organization, project, and PAT (personal access token)
-$organization = "your-organization-name"
-$project = "your-project-name"
-$pat = "your-personal-access-token"
+$organization = "kloudping"
+$project = "DevOps-Team"
+$pat = "4k7ubtsg3b23yhywijt7z4czcfhq5gpzekapatn26ujjm6oijzuq"
 
 # Create the Basic Authorization header
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($pat)"))
